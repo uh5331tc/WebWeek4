@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="list_style.css" type="text/css" rel="stylesheet">
+    <script async defer src="list.js"></script>
+</head>
+<body>
+
+<h1>Enter text to add to a list</h1> <!--HTML SECTION-->
+    <!--  <input id="new-text"> </input>  -->
+    <div id="controls">
+    <input name="text" type="text" id="new-text" class="form-control" required style="background-color: rgb(220, 136, 241); border: 3px solid #e20000;"> <br>
+<br>
+    
+    <div id="buttons">
+    <button id="add-text" class="form-control" required style="background-color: rgb(220, 136, 241); border: 3px solid #e20000;">Add</button>
+    
+        <ul id="list-of-text"> 
+            <!--the user adds a list of things-->
+        </ul>
+    <button id="clear" class="form-control" required style="background-color: rgb(220, 136, 241); border: 3px solid #e20000;">Clear</button> <!--clear list button-->
+    </div>
+    </div>
+
+
+
+    <script> //JAVASCRIPT SECTION
+        let textInput = document.querySelector('#new-text') //selecting the element
+        let addButton = document.querySelector('#add-text') //selecting the add text button
+        let textList = document.querySelector('#list-of-text') //selecting the list the user added
+        let clearButton = document.querySelector('#clear')  // selecting the CLEAR button to clear the list
+    
+        let elementsInList = 0  // variable to track number of items in the list
+        let maxElents = 9  // preventing more than 10 items being added to the list COUNT STARTS AT 0
+        let maxInput = 49 // preventing more than 50 charaters in text input box
+        document.addEventListener('keyup', function(){  // ENTER KEY will add to list 
+            //  console.log(event.keyCode) this code will log the keycodes for each key pressed 
+            if (event.keyCode == 13) {
+                addButton.click() //ENTER KEY will RUN ADDBUTTON FUNCTION
+            }
+        })
+    
+        addButton.addEventListener('click', function() {
+            let newText = textInput.value   // read text in the input
+            if (newText.length > maxInput) {
+                alert('Entered more than 50 characters, please enter less.')
+                return
+            } 
+            if (newText.length == 0 ) { // validating user input is there before adding to list
+                alert('Enter text') //alert message
+                return
+            }
+        
+            if (elementsInList > maxElents) { // checking the list is not longer than the max 
+                alert('no more elements can be added')
+                return
+            }
+            //console.log(newText) no idea what this means??
+            let newListItem = document.createElement('li')  // create a new li element
+            newListItem.innerHTML = newText
+            textList.appendChild(newListItem) // add the new li element as a child of the ul element
+            textInput.value = ''  // clear the input box for new input 
+    
+            elementsInList++ // increase the count as each element gets added to the list
+            
+        })
+
+    
+        clearButton.addEventListener('click', function() {
+            textList.innerHTML = ''
+            elementsInList = 0
+        })
+    
+        
+    </script>
+    </body>
+    </html>
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
